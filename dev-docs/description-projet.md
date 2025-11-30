@@ -5,19 +5,19 @@ Site internet de gestion de concours de programmation, dans le style d'[adventof
 
 Pour chaque problème, chaque participant ou chaque équipe reçoit une entrée (*input*) unique associée à son compte (ou à son équipe) et doit générer une sortie (*output*). Une entrée possède une seule sortie possible.
 
-> [!NOTE] Exemple
+> [!NOTE]
 >  **Problème :** donnez la somme des nombres reçus. Les nombres sont séparés par des virgules.
 > **Input :** `2,5,3,4,5,7,12`
 > 
 > L'utilisateur développe un programme dans le langage de programmation de son choix lui permettant de résoudre le problème. Le programme pourrait par exemple être :
 > 
-```python
-input = "2,5,3,4,5,7,12"
-sum = 0
-for s in input.split(","):
-  sum += int(s)
-print(sum)
-```
+> ```python
+> input = "2,5,3,4,5,7,12"
+> sum = 0
+> for s in input.split(","):
+>   sum += int(s)
+> print(sum)
+> ```
 > 
 > **Sortie attendue :** `38`
 ## Création de compte utilisateur

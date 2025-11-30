@@ -15,6 +15,7 @@
 | user      |
 | --------- |
 | id        |
+| name      |
 | email     |
 | validated |
 |           |
