@@ -11,13 +11,13 @@ Pour chaque problème, chaque participant ou chaque équipe reçoit une entrée 
 > 
 > L'utilisateur développe un programme dans le langage de programmation de son choix lui permettant de résoudre le problème. Le programme pourrait par exemple être :
 > 
-> ```python
+```python
 input = "2,5,3,4,5,7,12"
 sum = 0
 for s in input.split(","):
   sum += int(s)
 print(sum)
-> ```
+```
 > 
 > **Sortie attendue :** `38`
 ## Création de compte utilisateur
