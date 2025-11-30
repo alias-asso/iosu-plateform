@@ -5,7 +5,7 @@ Site internet de gestion de concours de programmation, dans le style d'[adventof
 
 Pour chaque problème, chaque participant ou chaque équipe reçoit une entrée (*input*) unique associée à son compte (ou à son équipe) et doit générer une sortie (*output*). Une entrée possède une seule sortie possible.
 
-> [!info] Exemple
+> [!NOTE] Exemple
 >  **Problème :** donnez la somme des nombres reçus. Les nombres sont séparés par des virgules.
 > **Input :** `2,5,3,4,5,7,12`
 > 
