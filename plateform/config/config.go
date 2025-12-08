@@ -1,6 +1,7 @@
-package main
+package config
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/BurntSushi/toml"
@@ -8,6 +9,18 @@ import (
 
 type Sqlite struct {
 	DbPath string
+}
+
+type Postgres struct {
+	DbUrl    string
+	Username string
+	Password string
+}
+
+type Mysql struct {
+	DbUrl    string
+	Username string
+	Password string
 }
 
 type Config struct {
@@ -25,4 +38,12 @@ func ParseConfig(path string) (error, Config) {
 		return err, Config{}
 	}
 	return nil, config
+}
+
+func DefaultConfig() Config {
+	return Config{
+		Sqlite: Sqlite{
+			DbPath: fmt.Sprintf("/var/%s/db.sqlite", PlateformName),
+		},
+	}
 }
