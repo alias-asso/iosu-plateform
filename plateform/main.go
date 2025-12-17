@@ -6,11 +6,12 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/alias-asso/iosu/plateform/config"
+	"github.com/alias-asso/iosu/plateform/server"
 )
 
-const PlateformName = "iosu"
-
-var configDirPath string = fmt.Sprintf("/etc/%s", PlateformName)
+var configDirPath string = fmt.Sprintf("/etc/%s", config.PlateformName)
 var configPath = flag.String("c", filepath.Join(configDirPath, "config.toml"), "Config file path.")
 
 func main() {
@@ -25,4 +26,15 @@ func main() {
 		}
 	}
 
+	config, err := config.ParseConfig(*configPath)
+	if err != nil {
+		log.Fatalln("Error parsing config : " + err.Error())
+	}
+
+	serv, err := server.NewServer(config)
+	if err != nil {
+		log.Fatalln("Error creating server : " + err.Error())
+	}
+
+	serv.Start(config.ServerPort)
 }
