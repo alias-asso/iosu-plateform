@@ -1,6 +1,7 @@
 package database
 
 import (
+	"log"
 	"time"
 
 	"gorm.io/gorm"
@@ -11,6 +12,7 @@ type User struct {
 	Username  string
 	Email     string
 	Validated bool
+	Role      string
 }
 
 type ActivationCode struct {
@@ -39,4 +41,13 @@ type Problem struct {
 	Points       int
 	DifficultyID int
 	Difficulty   Difficulty
+}
+
+func Migrate(db *gorm.DB) error {
+	err := db.AutoMigrate(&User{}, &ActivationCode{}, &Contest{}, &Difficulty{}, &Problem{})
+	if err != nil {
+		return err
+	}
+	log.Println("Database migration finished.")
+	return nil
 }

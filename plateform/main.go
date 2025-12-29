@@ -36,5 +36,10 @@ func main() {
 		log.Fatalln("Error creating server : " + err.Error())
 	}
 
+	err = serv.SetupServer(config)
+	if err != nil {
+		log.Fatalln("Error setting up server : " + err.Error())
+	}
+
 	serv.Start(config.ServerPort)
 }

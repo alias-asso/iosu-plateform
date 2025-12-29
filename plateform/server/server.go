@@ -10,25 +10,38 @@ import (
 )
 
 type Server struct {
-	Db  *gorm.DB
-	Mux *http.ServeMux
+	db  *gorm.DB
+	mux *http.ServeMux
+	cfg *config.Config
 }
 
 // Define a basic http server and connect to the database
 func NewServer(config config.Config) (Server, error) {
 	mux := http.NewServeMux()
 
-	err, db := database.ConnectSqlite(config.Sqlite.DbPath)
+	err, db := database.ConnectDb(&config)
 	if err != nil {
-		return Server{}, err
+		log.Fatalln("Error connecting to the database")
 	}
+
 	return Server{
-		Mux: mux,
-		Db:  db,
+		mux: mux,
+		db:  db,
+		cfg: &config,
 	}, nil
+}
+
+func (s *Server) SetupServer(config config.Config) error {
+	registerRoutes(s)
+
+	err := database.Migrate(s.db)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *Server) Start(port string) {
 	log.Printf("Listening on %s:%s", "localhost", port)
-	http.ListenAndServe(":"+port, s.Mux)
+	http.ListenAndServe(":"+port, s.mux)
 }

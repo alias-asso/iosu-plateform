@@ -1,4 +1,5 @@
 server_port = "8990"
+jwt_key = "0sb4kq6WV0WAefxA"
 
 db_type = "sqlite"
 [sqlite]
