@@ -1,3 +1,5 @@
-{{ define "error" . }}
-<p>{{ .error }}</p>
+{{ template "base.gohtml" . }}
+
+{{ define "content" }}
+<p>{{ . }}</p>
 {{ end }}

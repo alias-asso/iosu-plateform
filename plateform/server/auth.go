@@ -57,3 +57,7 @@ func (s *Server) postLogin(w http.ResponseWriter, r *http.Request) {
 	// w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 }
+
+func (s *Server) postRegisterAccount(w http.ResponseWriter, r *http.Request) {
+
+}
