@@ -11,8 +11,8 @@ type User struct {
 	gorm.Model
 	Username  string
 	Email     string
-	Validated bool
-	Role      string
+	Activated bool
+	Admin     bool
 }
 
 type ActivationCode struct {

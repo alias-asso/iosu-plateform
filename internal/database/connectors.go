@@ -3,7 +3,7 @@ package database
 import (
 	"errors"
 
-	"github.com/alias-asso/iosu/plateform/config"
+	"github.com/alias-asso/iosu/internal/config"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )

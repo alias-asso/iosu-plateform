@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/alias-asso/iosu/plateform/config"
-	"github.com/alias-asso/iosu/plateform/database"
+	"github.com/alias-asso/iosu/internal/config"
+	"github.com/alias-asso/iosu/internal/database"
 	"gorm.io/gorm"
 )
 

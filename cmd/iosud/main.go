@@ -7,8 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/alias-asso/iosu/plateform/config"
-	"github.com/alias-asso/iosu/plateform/server"
+	"github.com/alias-asso/iosu/internal/config"
+	"github.com/alias-asso/iosu/internal/server"
 )
 
 var configDirPath string = fmt.Sprintf("/etc/%s", config.PlateformName)
