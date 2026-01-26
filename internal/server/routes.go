@@ -1,7 +1,7 @@
 package server
 
 func registerRoutes(s *Server) {
-	s.mux.HandleFunc("/", s.handleNotFound)
+	s.mux.HandleFunc("/", s.getNotFound)
 
 	// Login routes
 	s.mux.HandleFunc("GET /login", s.getLogin)

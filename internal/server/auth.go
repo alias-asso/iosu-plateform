@@ -1,8 +1,8 @@
 package server
 
 import (
-	"context"
 	"encoding/csv"
+	"errors"
 	"fmt"
 	"log"
 	"math/rand"
@@ -14,19 +14,21 @@ import (
 	"github.com/alias-asso/iosu/internal/config"
 	"github.com/alias-asso/iosu/internal/database"
 	"github.com/golang-jwt/jwt/v5"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
 type Claims struct {
 	Username string `json:"username"`
-	Role     string `json:"role"`
+	Admin    bool   `json:"admin"`
 	jwt.RegisteredClaims
 }
 
-func generateJWT(username string, config *config.Config) (string, error) {
+func generateJWT(username string, admin bool, config *config.Config) (string, error) {
 	expirationTime := time.Now().Add(5 * time.Minute)
 	claims := &Claims{
 		Username: username,
+		Admin:    admin,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expirationTime),
 		},
@@ -67,24 +69,49 @@ type UserRequest struct {
 	email    string
 }
 
-func (s *Server) createDeactivatedAccount(ctx context.Context, userInfos UserRequest) error {
-	user := database.User{Username: userInfos.username, Email: userInfos.email, Activated: false, Admin: false}
-
-	activationCode := database.ActivationCode{Code: generateActivationCode(), Expiration: time.Now(), User: user}
-	err := gorm.G[database.ActivationCode](s.db).Create(ctx, &activationCode)
-	return err
+func encryptPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
 }
 
-// route handler
-func (s *Server) getLogin(w http.ResponseWriter, r *http.Request) {
+func comparePassword(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }
 
 // route handler
 func (s *Server) postLogin(w http.ResponseWriter, r *http.Request) {
-	// TODO: verify username/password
-	token, err := generateJWT(r.FormValue("username"), s.cfg)
+	email := r.FormValue("email")
+	password := r.FormValue("password")
+
+	if email == "" {
+		http.Error(w, "An email is required.", http.StatusBadRequest)
+		return
+	}
+	if !validateEmail(email) {
+		http.Error(w, "Invalid email.", http.StatusBadRequest)
+		return
+	}
+
+	if password == "" {
+		http.Error(w, "A password is required.", http.StatusBadRequest)
+		return
+	}
+
+	user, err := gorm.G[database.User](s.db).First(r.Context())
 	if err != nil {
-		http.Error(w, "Internal error", http.StatusInternalServerError)
+		http.Error(w, "No account is associated with this email.", http.StatusBadRequest)
+		return
+	}
+
+	if !comparePassword(password, user.Password) {
+		http.Error(w, "Wrong password.", http.StatusBadRequest)
+		return
+	}
+
+	token, err := generateJWT(r.FormValue("username"), user.Admin, s.cfg)
+	if err != nil {
+		http.Error(w, "Internal error.", http.StatusInternalServerError)
 		log.Println(err)
 		return
 	}
@@ -102,7 +129,7 @@ func (s *Server) postLogin(w http.ResponseWriter, r *http.Request) {
 	// w.Header().Set("HX-Redirect", "/admin")
 	// w.WriteHeader(http.StatusOK)
 	// TODO: replace with ok template
-	w.Write([]byte("ok"))
+	w.Write([]byte("logged in"))
 }
 
 // route handler
@@ -161,9 +188,12 @@ func (s *Server) postBatchCreateAccounts(w http.ResponseWriter, r *http.Request)
 		}
 	}
 	for _, user := range users {
-		err := s.createDeactivatedAccount(context.Background(), user)
+		user := database.User{Username: user.username, Email: user.email, Activated: false, Admin: false}
+
+		activationCode := database.ActivationCode{Code: generateActivationCode(), Expiration: time.Now(), User: user}
+		err := gorm.G[database.ActivationCode](s.db).Create(r.Context(), &activationCode)
 		if err != nil {
-			http.Error(w, fmt.Sprintf("Unable to create account %s.", user.username), http.StatusUnsupportedMediaType)
+			http.Error(w, fmt.Sprintf("Unable to create account %s.", user.Username), http.StatusUnsupportedMediaType)
 			log.Println(err)
 			return
 		}
