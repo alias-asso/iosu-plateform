@@ -1,0 +1,70 @@
+form {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+form.larger {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+form.larger > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+form.larger > .form--reverse {
+  width: 100%;
+
+  flex-direction: row;
+  gap: 2rem;
+}
+form.larger > .form--reverse > * {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+input {
+  padding: 0.5rem;
+
+  font-size: 1rem;
+  line-height: 1.4em;
+
+  background: var(--input-color);
+  color: var(--input-text-color);
+  border: var(--border-base-size) var(--border-color) solid;
+
+  transition: 0.3s ease;
+}
+input:focus {
+  box-shadow: 0.3em -0.3em 0 var(--color-accent-light);
+  border: var(--border-base-size) var(--border-color-accent) solid;
+  outline: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.response {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+
+  display: block;
+}
+.response--success {
+  color: var(--color-black);
+  background: var(--color-success);
+}
+.response--danger {
+  color: var(--color-sand);
+  background: var(--color-danger);
+}
+.response p {
+  margin-bottom: 0;
+}
