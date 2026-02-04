@@ -1,5 +1,8 @@
+@use "vars";
+
 body {
-  font-family: Inter, Roboto, "Nebula Sans", "Public Sans", Verdana, Arial, sans-serif;
+  font-family:
+    Inter, Roboto, "Nebula Sans", "Public Sans", Verdana, Arial, sans-serif;
   /* this enables special features of the font Inter
    * ss02 is "Alternate glyph set that increases visual difference between similar-looking characters."
    * tnum is "Fixed-width numbers are useful for tabular data, where comparing columns across rows is desired."
@@ -66,6 +69,10 @@ ol {
   margin-left: 2rem;
   margin-top: -0.5rem;
   margin-bottom: 1rem;
+
+  @media only screen and (max-width: vars.$bp-small) {
+    margin-left: 1rem;
+  }
 }
 
 ul {
@@ -107,6 +114,10 @@ pre {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 2rem;
   align-items: center;
+
+  @media only screen and (max-width: vars.$bp-small) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .btn {
@@ -137,6 +148,10 @@ pre {
   flex-direction: row;
   gap: 1rem;
   align-items: center;
+
+  @media only screen and (max-width: vars.$bp-small) {
+    flex-direction: column;
+  }
 }
 .btns--center {
   justify-content: center;

@@ -1,3 +1,5 @@
+@use "vars";
+
 header {
   background: var(--color-accent-light);
   border-bottom: var(--border-header-size) var(--border-color) solid;
@@ -28,6 +30,10 @@ nav {
 
   --color-primary-text: var(--color-sand);
   color: var(--color-primary-text);
+
+  @media only screen and (max-width: vars.$bp-large) {
+    padding: 1rem;
+  }
 }
 
 nav h1 {
@@ -50,6 +56,10 @@ nav h1 a:hover {
 
   list-style: none;
   margin-left: 0;
+
+  @media only screen and (max-width: vars.$bp-mid) {
+    margin-top: 0.1rem;
+  }
 }
 .navbar__links a {
   /*font-family: Newsreader, sans-serif;*/
@@ -57,6 +67,14 @@ nav h1 a:hover {
   font-weight: 400;
   color: var(--color-primary-text);
   text-decoration: none;
+
+  @media only screen and (max-width: vars.$bp-mid) {
+    font-size: 1.2em;
+  }
+
+  @media only screen and (max-width: vars.$bp-small) {
+    display: none;
+  }
 }
 .navbar__links a:hover {
   text-decoration: underline;
@@ -73,6 +91,10 @@ nav li {
   display: none;
   font-size: 2rem;
   cursor: pointer;
+
+  @media only screen and (max-width: vars.$bp-small) {
+    display: block;
+  }
 }
 #toggle-navbar:checked ~ h1 {
   position: fixed;

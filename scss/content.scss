@@ -1,3 +1,5 @@
+@use "vars";
+
 main.larger {
   max-width: var(--header-max-width);
 }
@@ -16,4 +18,19 @@ main.larger {
   border: var(--border-container-size) var(--border-color) solid;
 
   font-size: 0.9em;
+}
+
+@media only screen and (max-width: vars.$bp-mid) {
+  .article__container {
+    gap: 2rem 1rem;
+  }
+  .article__container > article {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: vars.$bp-small) {
+  .article__container > article {
+    padding: 1rem;
+  }
 }
