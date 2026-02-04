@@ -1,6 +1,7 @@
 @use "../node_modules/reset-css/sass/reset";
 @use "global";
 @use "form";
+@use "header";
 
 :root {
   --color-white: #fff;
