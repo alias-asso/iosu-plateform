@@ -52,9 +52,10 @@ p {
 a {
   text-decoration: none;
   color: var(--color-accent);
-}
-a:hover {
-  text-decoration: underline;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 em {
@@ -133,12 +134,13 @@ pre {
   border: var(--border-base-size) var(--border-color) solid;
 
   transition: 0.3s ease;
-}
-.btn:hover {
-  color: var(--btn-text-color-hover);
-  text-decoration: none;
-  background: var(--btn-color-hover);
-  box-shadow: 0.3em -0.3em 0 var(--btn-color);
+
+  &:hover {
+    color: var(--btn-text-color-hover);
+    text-decoration: none;
+    background: var(--btn-color-hover);
+    box-shadow: 0.3em -0.3em 0 var(--btn-color);
+  }
 }
 
 .btns {
@@ -152,12 +154,14 @@ pre {
   @media only screen and (max-width: vars.$bp-small) {
     flex-direction: column;
   }
-}
-.btns--center {
-  justify-content: center;
-}
-.btns--no-marge {
-  margin: 0;
+
+  &--center {
+    justify-content: center;
+  }
+
+  &--no-marge {
+    margin: 0;
+  }
 }
 
 .subtitle {
@@ -171,7 +175,8 @@ pre {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-}
-.flex--small {
-  gap: 1rem;
+
+  &--small {
+    gap: 2rem;
+  }
 }

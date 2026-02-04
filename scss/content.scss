@@ -9,28 +9,25 @@ main.larger {
 
   gap: 2rem;
   align-items: baseline;
-}
 
-.article__container > article {
-  padding: 2rem;
-
-  background: var(--color-tertiary);
-  border: var(--border-container-size) var(--border-color) solid;
-
-  font-size: 0.9em;
-}
-
-@media only screen and (max-width: vars.$bp-mid) {
-  .article__container {
+  @media only screen and (max-width: vars.$bp-mid) {
     gap: 2rem 1rem;
   }
-  .article__container > article {
-    font-size: 1rem;
-  }
-}
 
-@media only screen and (max-width: vars.$bp-small) {
-  .article__container > article {
-    padding: 1rem;
+  & > article {
+    padding: 2rem;
+
+    background: var(--color-tertiary);
+    border: var(--border-container-size) var(--border-color) solid;
+
+    font-size: 0.9em;
+
+    @media only screen and (max-width: vars.$bp-mid) {
+      font-size: 1rem;
+    }
+
+    @media only screen and (max-width: vars.$bp-mid) {
+      padding: 1rem;
+    }
   }
 }
