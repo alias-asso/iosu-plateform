@@ -1,0 +1,19 @@
+main.larger {
+  max-width: var(--header-max-width);
+}
+
+.article__container {
+  margin-bottom: 4rem;
+
+  gap: 2rem;
+  align-items: baseline;
+}
+
+.article__container > article {
+  padding: 2rem;
+
+  background: var(--color-tertiary);
+  border: var(--border-container-size) var(--border-color) solid;
+
+  font-size: 0.9em;
+}
